@@ -170,28 +170,52 @@
   <window ref="addWindow" title="xxxxx">
     <div slot="body">
 
-      <div data-ui="form" data-type="addCourse" class="am-form">
+      <div class="am-form">
 
         <div class="am-g am-margin-top">
           <div class="am-u-md-6">
             <div class="am-u-md-3 am-text-right">
               <span class="am-inline-block am-margin-top-xs">
                 <span class="am-text-danger am-margin-right-xs am-text-lg"> * </span>
-                课程名称
+                姓名
               </span>
             </div>
             <div class="am-u-md-9">
-              <input type="text" name="title" class="am-form-field" placeholder="课程名称">
+              <input type="text" name="title" class="am-form-field" placeholder="姓名">
               <div class="am-text-danger am-text-left">不能为空</div>
             </div>
           </div>
 
           <div class="am-u-md-6">
             <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">年级</span>
+              <span class="am-inline-block am-margin-top-xs">籍贯</span>
             </div>
             <div class="am-u-md-9">
-              <select name="gradeId" class=""><option value="101">高一</option><option value="102">高二</option></select>
+              <select class="am-form-select"><option value="广州">广州</option><option value="韶关">韶关</option><option value="深圳">深圳</option><option value="珠海">珠海</option><option value="汕头">汕头</option><option value="佛山">佛山</option><option value="江门">江门</option><option value="湛江">湛江</option><option value="茂名">茂名</option><option value="肇庆">肇庆</option><option value="惠州">惠州</option><option value="梅州">梅州</option><option value="汕尾">汕尾</option><option value="河源">河源</option><option value="阳江">阳江</option><option value="清远">清远</option><option value="东莞">东莞</option><option value="中山">中山</option><option value="潮州">潮州</option><option value="揭阳">揭阳</option><option value="云浮">云浮</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="am-g am-margin-top">
+          <div class="am-u-md-6">
+            <div class="am-u-md-3 am-text-right">
+              <span class="am-inline-block am-margin-top-xs">
+                <span class="am-text-danger am-margin-right-xs am-text-lg"> * </span>
+                生日
+              </span>
+            </div>
+            <div class="am-u-md-9">
+              <input type="text" name="title" class="am-form-field" placeholder="姓名">
+              <div class="am-text-danger am-text-left">不能为空</div>
+            </div>
+          </div>
+
+          <div class="am-u-md-6">
+            <div class="am-u-md-3 am-text-right">
+              <span class="am-inline-block am-margin-top-xs">籍贯</span>
+            </div>
+            <div class="am-u-md-9">
+              <select class="am-form-select"><option value="广州">广州</option><option value="韶关">韶关</option><option value="深圳">深圳</option><option value="珠海">珠海</option><option value="汕头">汕头</option><option value="佛山">佛山</option><option value="江门">江门</option><option value="湛江">湛江</option><option value="茂名">茂名</option><option value="肇庆">肇庆</option><option value="惠州">惠州</option><option value="梅州">梅州</option><option value="汕尾">汕尾</option><option value="河源">河源</option><option value="阳江">阳江</option><option value="清远">清远</option><option value="东莞">东莞</option><option value="中山">中山</option><option value="潮州">潮州</option><option value="揭阳">揭阳</option><option value="云浮">云浮</option></select>
             </div>
           </div>
         </div>
