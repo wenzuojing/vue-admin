@@ -33,7 +33,8 @@ module.exports = merge(baseWebpackConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index_test.html',
-      template: 'index_test.html'
+      template: 'index_test.html',
+      inject: false
     }),
     new FriendlyErrors()
   ]

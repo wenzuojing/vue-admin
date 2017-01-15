@@ -169,40 +169,10 @@
   <loading ref="loading"></loading>
   <window ref="addWindow" title="xxxxx">
     <div slot="body">
-
-      <div data-ui="form" data-type="addCourse" class="am-form">
-
-        <div class="am-g am-margin-top">
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">
-                <span class="am-text-danger am-margin-right-xs am-text-lg"> * </span>
-                课程名称
-              </span>
-            </div>
-            <div class="am-u-md-9">
-              <input type="text" name="title" class="am-form-field" placeholder="课程名称">
-              <div class="am-text-danger am-text-left">不能为空</div>
-            </div>
-          </div>
-
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">年级</span>
-            </div>
-            <div class="am-u-md-9">
-              <select name="gradeId" class=""><option value="101">高一</option><option value="102">高二</option></select>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-
-
+      <user-form ref="userForm" v-on:submit="saveUser()"/>
     </div>
     <span  slot="footer" class="am-modal-btn" data-am-modal-close>取消</span>
-    <span  slot="footer" class="am-modal-btn" >确定</span>
+    <span  slot="footer" class="am-modal-btn" @click="$refs.userForm.submit()">确定</span>
   </window>
 
   </div>
@@ -214,6 +184,7 @@
 
 import Loading from '../base/Loading'
 import Window from '../base/Window'
+import UserForm from './UserForm'
 
     export default{
         name: 'table-list',
@@ -223,11 +194,12 @@ import Window from '../base/Window'
           }
         },
         components: {
+          UserForm,
           Loading,
           Window
         },
         methods:{
-          canal:function(){
+          saveUser:function(){
             alert(1111)
           }
         }
