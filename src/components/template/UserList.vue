@@ -3,7 +3,7 @@
   <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
     <div class="widget am-cf">
       <div class="widget-head am-cf">
-        <div class="widget-title  am-cf">文章列表</div>
+        <div class="widget-title  am-cf">用户列表</div>
       </div>
       <div class="widget-body  am-fr">
 
@@ -11,7 +11,7 @@
           <div class="am-form-group">
             <div class="am-btn-toolbar">
               <div class="am-btn-group am-btn-group-xs">
-                <button type="button" class="am-btn am-btn-default am-btn-success" @click="add"><span class="am-icon-plus"></span>新增</button>
+                <button type="button" class="am-btn am-btn-default am-btn-success" @click="$router.push('/main/user/add')"><span class="am-icon-plus"></span>新增</button>
                 <button type="button" class="am-btn am-btn-default am-btn-danger" @click="del"><span class="am-icon-plus"></span>删除</button>
                 <button type="button" class="am-btn am-btn-default am-btn-danger" @click="$refs.loading.show()"><span class="am-icon-trash-o"></span> Loading</button>
               </div>
@@ -165,14 +165,6 @@
     </div>
   </div>
 
-  <window ref="addWindow" title="用户资料">
-    <div slot="body">
-      <user-form ref="userForm"/>
-    </div>
-    <span  slot="footer" class="am-modal-btn" data-am-modal-close>取消</span>
-    <span  slot="footer" class="am-modal-btn" @click="$refs.userForm.save()">确定</span>
-  </window>
-
   </div>
 </template>
 <style scoped>
@@ -185,7 +177,7 @@ import Window from '../base/Window'
 import UserForm from './UserForm'
 
     export default{
-        name: 'table-list',
+        name: 'user-list',
         data:function(){
           return {
             loading : false
@@ -209,6 +201,12 @@ import UserForm from './UserForm'
               _this.$root.$refs.alert.show('你取消删除');
 
             });
+
+          },
+          reloadDataTable:function(){
+
+          },
+          loadDataTable:function(){
 
           }
         }

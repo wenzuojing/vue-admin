@@ -9,7 +9,8 @@ import Loading from './components/base/Loading'
 import Alert from './components/base/Alert'
 import Confirm from './components/base/Confirm'
 import Prompt from './components/base/Prompt'
-import Table from './components/template/Table'
+import UserList from './components/template/UserList'
+import UserForm from './components/template/UserForm'
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,9 @@ const router = new VueRouter({
     path: '/main',
     component: Main,
     children:[
-      {path: 'table' , component: Table }
+      {path: 'user/list' , component: UserList },
+      {path: 'user/add' , component: UserForm },
+      {path: 'user/edit' , component: UserForm }
     ]
   },{
     path: '/login',
