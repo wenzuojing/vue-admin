@@ -11,10 +11,8 @@
           <div class="am-form-group">
             <div class="am-btn-toolbar">
               <div class="am-btn-group am-btn-group-xs">
-                <button type="button" class="am-btn am-btn-default am-btn-success" @click="$refs.addWindow.show({width:1000})"><span class="am-icon-plus"></span> 新增</button>
-                <button type="button" class="am-btn am-btn-default am-btn-secondary"><span class="am-icon-save"></span> 保存</button>
-                <button type="button" class="am-btn am-btn-default am-btn-warning"><span class="am-icon-archive"></span> 审核</button>
-                <button type="button" class="am-btn am-btn-default am-btn-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                <button type="button" class="am-btn am-btn-default am-btn-success" @click="add"><span class="am-icon-plus"></span>新增</button>
+                <button type="button" class="am-btn am-btn-default am-btn-danger" @click="del"><span class="am-icon-plus"></span>删除</button>
                 <button type="button" class="am-btn am-btn-default am-btn-danger" @click="$refs.loading.show()"><span class="am-icon-trash-o"></span> Loading</button>
               </div>
             </div>
@@ -166,67 +164,13 @@
       </div>
     </div>
   </div>
-  <loading ref="loading"></loading>
-  <window ref="addWindow" title="xxxxx">
+
+  <window ref="addWindow" title="用户资料">
     <div slot="body">
-
-      <div class="am-form">
-
-        <div class="am-g am-margin-top">
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">
-                <span class="am-text-danger am-margin-right-xs am-text-lg"> * </span>
-                姓名
-              </span>
-            </div>
-            <div class="am-u-md-9">
-              <input type="text" name="title" class="am-form-field" placeholder="姓名">
-              <div class="am-text-danger am-text-left">不能为空</div>
-            </div>
-          </div>
-
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">籍贯</span>
-            </div>
-            <div class="am-u-md-9">
-              <select class="am-form-select"><option value="广州">广州</option><option value="韶关">韶关</option><option value="深圳">深圳</option><option value="珠海">珠海</option><option value="汕头">汕头</option><option value="佛山">佛山</option><option value="江门">江门</option><option value="湛江">湛江</option><option value="茂名">茂名</option><option value="肇庆">肇庆</option><option value="惠州">惠州</option><option value="梅州">梅州</option><option value="汕尾">汕尾</option><option value="河源">河源</option><option value="阳江">阳江</option><option value="清远">清远</option><option value="东莞">东莞</option><option value="中山">中山</option><option value="潮州">潮州</option><option value="揭阳">揭阳</option><option value="云浮">云浮</option></select>
-            </div>
-          </div>
-        </div>
-
-        <div class="am-g am-margin-top">
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">
-                <span class="am-text-danger am-margin-right-xs am-text-lg"> * </span>
-                生日
-              </span>
-            </div>
-            <div class="am-u-md-9">
-              <input type="text" name="title" class="am-form-field" placeholder="姓名">
-              <div class="am-text-danger am-text-left">不能为空</div>
-            </div>
-          </div>
-
-          <div class="am-u-md-6">
-            <div class="am-u-md-3 am-text-right">
-              <span class="am-inline-block am-margin-top-xs">籍贯</span>
-            </div>
-            <div class="am-u-md-9">
-              <select class="am-form-select"><option value="广州">广州</option><option value="韶关">韶关</option><option value="深圳">深圳</option><option value="珠海">珠海</option><option value="汕头">汕头</option><option value="佛山">佛山</option><option value="江门">江门</option><option value="湛江">湛江</option><option value="茂名">茂名</option><option value="肇庆">肇庆</option><option value="惠州">惠州</option><option value="梅州">梅州</option><option value="汕尾">汕尾</option><option value="河源">河源</option><option value="阳江">阳江</option><option value="清远">清远</option><option value="东莞">东莞</option><option value="中山">中山</option><option value="潮州">潮州</option><option value="揭阳">揭阳</option><option value="云浮">云浮</option></select>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-
-
+      <user-form ref="userForm"/>
     </div>
     <span  slot="footer" class="am-modal-btn" data-am-modal-close>取消</span>
-    <span  slot="footer" class="am-modal-btn" >确定</span>
+    <span  slot="footer" class="am-modal-btn" @click="$refs.userForm.save()">确定</span>
   </window>
 
   </div>
@@ -236,8 +180,9 @@
 </style>
 <script>
 
-import Loading from '../base/Loading'
+
 import Window from '../base/Window'
+import UserForm from './UserForm'
 
     export default{
         name: 'table-list',
@@ -247,12 +192,24 @@ import Window from '../base/Window'
           }
         },
         components: {
-          Loading,
+          UserForm,
           Window
         },
         methods:{
-          canal:function(){
-            alert(1111)
+          add:function(){
+            this.$refs.addWindow.show({width:1000})
+          },
+          del:function(){
+            const _this = this ;
+            _this.$root.$refs.confirm.show('你确定要删除' ,
+            function(){
+              _this.$root.$refs.alert.show('你选择删除');
+            },
+            function(){
+              _this.$root.$refs.alert.show('你取消删除');
+
+            });
+
           }
         }
     }

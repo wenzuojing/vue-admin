@@ -24,7 +24,10 @@
       },
       methods: {
         show: function(){
-          $('#'+this.id).modal('open')
+          $('#'+this.id).modal({
+            closeViaDimmer : false,
+            closeOnConfirm : false
+          })
         },
         close: function(){
            $('#'+this.id).modal('close')
