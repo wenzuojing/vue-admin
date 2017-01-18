@@ -7,9 +7,9 @@ const io = {
   configUrls: function () {
     var  BASE_ADMIN_API = '';
     if('development' == process.env.NODE_ENV ){
-      BASE_ADMIN_API = 'http://localhost:8080/'
+      BASE_ADMIN_API = 'http://localhost:8080'
     }else if('production' == process.env.NODE_ENV){
-      BASE_ADMIN_API = 'http://localhost:8080/'
+      BASE_ADMIN_API = 'http://localhost:8080'
     }
     this.ping = BASE_ADMIN_API + '/ping'
   },

@@ -16,8 +16,8 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 
-app.get('/ping', function (req, res) {
-  res.send('pong');
+app.use('/ping', function (req, res) {
+  res.send('{"ret":"ok"}');
 })
 
 var compiler = webpack(webpackConfig)

@@ -1,6 +1,6 @@
 <template>
-  <div>
-  <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+  <div >
+  <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" v-print>
     <div class="widget am-cf">
       <div class="widget-head am-cf">
         <div class="widget-title  am-cf">用户列表</div>
@@ -13,7 +13,7 @@
               <div class="am-btn-group am-btn-group-xs">
                 <button type="button" class="am-btn am-btn-default am-btn-success" @click="$router.push('/main/user/add')"><span class="am-icon-plus"></span>新增</button>
                 <button type="button" class="am-btn am-btn-default am-btn-danger" @click="del"><span class="am-icon-plus"></span>删除</button>
-                <button type="button" class="am-btn am-btn-default am-btn-danger" @click="$refs.loading.show()"><span class="am-icon-trash-o"></span> Loading</button>
+                <button type="button" class="am-btn am-btn-default am-btn-danger" @click="$showLoading"><span class="am-icon-trash-o"></span> Loading</button>
               </div>
             </div>
           </div>
@@ -172,20 +172,17 @@
 </style>
 <script>
 
-
 import Window from '../base/Window'
 import UserForm from './UserForm'
 
     export default{
         name: 'user-list',
-        data:function(){
-          return {
-            loading : false
-          }
-        },
         components: {
           UserForm,
           Window
+        },
+        mounted:function(){
+          $(window).smoothScroll()
         },
         methods:{
           add:function(){
@@ -193,12 +190,12 @@ import UserForm from './UserForm'
           },
           del:function(){
             const _this = this ;
-            _this.$root.$refs.confirm.show('你确定要删除' ,
+            _this.$confirm('你确定要删除' ,
             function(){
-              _this.$root.$refs.alert.show('你选择删除');
+              _this.$alert('你选择删除');
             },
             function(){
-              _this.$root.$refs.alert.show('你取消删除');
+              _this.$alert('你取消删除');
 
             });
 
