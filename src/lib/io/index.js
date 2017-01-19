@@ -11,7 +11,8 @@ const io = {
     }else if('production' == process.env.NODE_ENV){
       BASE_ADMIN_API = 'http://localhost:8080'
     }
-    this.ping = BASE_ADMIN_API + '/ping'
+    this.saveUser = BASE_ADMIN_API + '/api?method=saveUser'
+    this.userList = BASE_ADMIN_API + '/api?method=userList'
   },
   getHeaders : function(){
     const accessToken = Storage.getAccessToken() || '' ;

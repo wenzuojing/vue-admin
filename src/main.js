@@ -34,14 +34,6 @@ const router = new VueRouter({
   }]
 })
 
-Vue.directive('print', {
-  bind: function (el, binding, vnode) {
-    console.log(vnode)
-
-  }
-})
-
-
 new Vue({
   el: '#app',
   router,

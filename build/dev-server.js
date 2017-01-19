@@ -8,6 +8,7 @@ var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 
+
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // Define HTTP proxies to your custom API backend
@@ -16,8 +17,98 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 
-app.use('/ping', function (req, res) {
-  res.send('{"ret":"ok"}');
+
+var users = [
+  {
+    userId: 0 ,
+    name : '攻城狮1',
+    location:'云浮',
+    birthday:'1999-09-09',
+    age:28,
+    sex:1,
+    hobby:['香蕉','苹果'],
+    phoneNo:'18312421977',
+    avatar:'',
+    intro:'呵呵,我是地球最闷骚的程序员'
+  },
+  {
+    userId: 1 ,
+    name : '攻城狮2',
+    location:'云浮',
+    birthday:'1999-09-09',
+    age:28,
+    sex:1,
+    hobby:['香蕉','苹果'],
+    phoneNo:'18312421977',
+    avatar:'',
+    intro:'呵呵,我是地球最闷骚的程序员'
+  },
+  {
+    userId: 2 ,
+    name : '攻城狮3',
+    location:'云浮',
+    birthday:'1999-09-09',
+    age:28,
+    sex:1,
+    hobby:['香蕉','苹果'],
+    phoneNo:'18312421977',
+    avatar:'',
+    intro:'呵呵,我是地球最闷骚的程序员'
+  },
+  {
+    userId: 3 ,
+    name : '攻城狮4',
+    location:'云浮',
+    birthday:'1999-09-09',
+    age:28,
+    sex:1,
+    hobby:['香蕉','苹果'],
+    phoneNo:'18312421977',
+    avatar:'',
+    intro:'呵呵,我是地球最闷骚的程序员'
+  }
+
+]
+
+app.use('/api', function (req, res) {
+
+  var method  = req.query.method
+
+
+  if(method == 'getUser'){
+    var id = req.query.userId ;
+    res.jsonp({
+      success : true ,
+      data : users[id]
+    })
+  }else if(method == 'saveUser'){
+    var u = req.query
+    if(u.userId ){
+      users[u.userId]= u ;
+    }else{
+      u.userId = users.length
+      users.push(u)
+    }
+    res.jsonp({
+      success : true
+    })
+  }else if(method == 'userList'){
+    var pageSize = req.query.pageSize
+    var pageNo = req.query.pageNo
+
+    var startIndex  = ( (pageNo -1 ) *pageSize )
+    var endIndex  = Math.min(pageNo*pageSize, users.length )
+
+    res.jsonp({
+      success : true,
+      data :{
+        total : users.length ,
+        pageNo : pageNo,
+        pageSize : pageSize ,
+        list : users.slice(startIndex,endIndex)
+      }
+    })
+  }
 })
 
 var compiler = webpack(webpackConfig)

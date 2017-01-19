@@ -1,6 +1,6 @@
 <template>
   <div >
-  <div class="am-u-sm-12 am-u-md-12 am-u-lg-12" v-print>
+  <div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
     <div class="widget am-cf">
       <div class="widget-head am-cf">
         <div class="widget-title  am-cf">用户列表</div>
@@ -18,6 +18,7 @@
             </div>
           </div>
         </div>
+
         <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
           <div class="am-form-group tpl-table-list-select">
             <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
@@ -44,77 +45,29 @@
           <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
             <thead>
             <tr>
-              <th>文章标题</th>
-              <th>作者</th>
-              <th>时间</th>
-              <th>操作</th>
+              <th>头像</th>
+              <th>姓名</th>
+              <th>性别</th>
+              <th>电话号码</th>
+              <th>籍贯</th>
+              <th>生日</th>
+              <th>年龄</th>
+              <th>爱好</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="gradeX">
-              <td>Amaze UI 模式窗口</td>
-              <td>张鹏飞</td>
-              <td>2016-09-26</td>
+
+            <tr v-for="item in tableData">
               <td>
-                <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
-                    <i class="am-icon-pencil"></i> 编辑
-                  </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
-                    <i class="am-icon-trash"></i> 删除
-                  </a>
-                </div>
+                <img :src="item.avatar" class="tpl-table-line-img" alt="">
               </td>
-            </tr>
-            <tr class="even gradeC">
-              <td>有适配微信小程序的计划吗</td>
-              <td>天纵之人</td>
-              <td>2016-09-26</td>
-              <td>
-                <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
-                    <i class="am-icon-pencil"></i> 编辑
-                  </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
-                    <i class="am-icon-trash"></i> 删除
-                  </a>
-                </div>
-              </td>
-            </tr>
-            <tr class="gradeX">
-              <td>请问有没有amazeui 分享插件</td>
-              <td>王宽师</td>
-              <td>2016-09-26</td>
-              <td>
-                <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
-                    <i class="am-icon-pencil"></i> 编辑
-                  </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
-                    <i class="am-icon-trash"></i> 删除
-                  </a>
-                </div>
-              </td>
-            </tr>
-            <tr class="even gradeC">
-              <td>关于input输入框的问题</td>
-              <td>着迷</td>
-              <td>2016-09-26</td>
-              <td>
-                <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
-                    <i class="am-icon-pencil"></i> 编辑
-                  </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
-                    <i class="am-icon-trash"></i> 删除
-                  </a>
-                </div>
-              </td>
-            </tr>
-            <tr class="even gradeC">
-              <td>有没有发现官网上的下载包不好用</td>
-              <td>醉里挑灯看键</td>
-              <td>2016-09-26</td>
+              <td>{{item.name}}</td>
+              <td>{{item.sex == 1 ? '男' : item.sex == 2 ?  '女' : '其他' }}</td>
+              <td>{{item.phoneNo}}</td>
+              <td>{{item.location}}</td>
+              <td>{{item.birthday}}</td>
+              <td>{{item.age}}</td>
+              <td>{{item.hobby ? item.hobby.join('、') : '' }}</td>
               <td>
                 <div class="tpl-table-black-operation">
                   <a href="javascript:;">
@@ -127,21 +80,7 @@
               </td>
             </tr>
 
-            <tr class="even gradeC">
-              <td>我建议WEB版本文件引入问题</td>
-              <td>罢了</td>
-              <td>2016-09-26</td>
-              <td>
-                <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
-                    <i class="am-icon-pencil"></i> 编辑
-                  </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
-                    <i class="am-icon-trash"></i> 删除
-                  </a>
-                </div>
-              </td>
-            </tr>
+
             <!-- more data -->
             </tbody>
           </table>
@@ -149,15 +88,7 @@
         <div class="am-u-lg-12 am-cf">
 
           <div class="am-fr">
-            <ul class="am-pagination tpl-pagination">
-              <li class="am-disabled"><a href="#">«</a></li>
-              <li class="am-active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
+            <pagination v-bind:total="total" v-bind:pageNo="pageNo" v-bind:pageSize="pageSize" @paging="" />
           </div>
         </div>
 
@@ -171,18 +102,32 @@
 
 </style>
 <script>
+import io from '../../lib/io'
 
+import Pagination from '../base/Pagination'
 import Window from '../base/Window'
 import UserForm from './UserForm'
 
     export default{
         name: 'user-list',
+        data:function(){
+          return {
+            tableData:[],
+            total:0,
+            pageSize:5,
+            pageNo:1
+          }
+        },
         components: {
+          Pagination,
           UserForm,
           Window
         },
         mounted:function(){
           $(window).smoothScroll()
+        },
+        created:function(){
+          this.loadTableData(this.pageNo);
         },
         methods:{
           add:function(){
@@ -203,8 +148,19 @@ import UserForm from './UserForm'
           reloadDataTable:function(){
 
           },
-          loadDataTable:function(){
-
+          loadTableData:function(){
+            var _this = this
+            io.get(io.userList,{
+              pageNo:this.pageNo,
+              pageSize:this.pageSize
+            },function(ret){
+              if(ret.success){
+                _this.total = ret.data.total
+                _this.tableData = ret.data.list
+              }else{
+                _this.$alert('请求服务器失败')
+              }
+            })
           }
         }
     }

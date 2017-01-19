@@ -197,11 +197,14 @@ import io from '../../lib/io'
             }
           });
         },
+
         methods:{
           save:function(complete){
             var _this = this
-            io.post(io.ping,{},
-            function(data){
+
+
+            io.get(io.saveUser,_this.formData,
+            function(ret){
               complete.call()
               _this.$toast('OK')
               _this.$router.push('/main/user/list')
