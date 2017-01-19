@@ -21,7 +21,7 @@
 
         <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
           <div class="am-form-group tpl-table-list-select">
-            <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+            <select v-selected="{btnSize: 'sm'}" style="display: none;">
               <option value="option1">所有类别</option>
               <option value="option2">IT业界</option>
               <option value="option3">数码产品</option>
@@ -88,7 +88,7 @@
         <div class="am-u-lg-12 am-cf">
 
           <div class="am-fr">
-            <pagination v-bind:total="total" v-bind:pageNo="pageNo" v-bind:pageSize="pageSize" @paging="" />
+            <pagination v-bind:total="total" v-bind:pageNo="pageNo" v-bind:pageSize="pageSize" @paging="loadTableData" />
           </div>
         </div>
 
@@ -148,11 +148,13 @@ import UserForm from './UserForm'
           reloadDataTable:function(){
 
           },
-          loadTableData:function(){
+          loadTableData:function(pageNo){
+            console.log(pageNo)
             var _this = this
+            _this.pageNo = pageNo
             io.get(io.userList,{
-              pageNo:this.pageNo,
-              pageSize:this.pageSize
+              pageNo:_this.pageNo,
+              pageSize:_this.pageSize
             },function(ret){
               if(ret.success){
                 _this.total = ret.data.total

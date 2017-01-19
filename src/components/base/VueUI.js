@@ -58,6 +58,25 @@ VueUI.install = function (Vue){
   }
 
 
+  Vue.directive('selected', {
+    bind: function (el, binding, vnode) {
+      $(el).attr('data-am-selected',binding.value ? binding.value : '')
+    },
+    inserted: function (el, binding, vnode) {
+      $(el).selected()
+    }
+  })
+
+  Vue.directive('datepicker', {
+    bind: function (el, binding, vnode) {
+      $(el).attr('data-am-datepicker',binding.value ? binding.value : '' )
+    },
+    inserted: function (el, binding, vnode) {
+      $(el).datepicker()
+    }
+  })
+
+
 }
 
 

@@ -38,7 +38,7 @@
                 <span class="am-text-danger am-margin-right-xs am-text-xs">*</span>出生日期
               </label>
               <div class="am-u-sm-9 input-field">
-                <input type="text" name="birthday" class="am-form-field" placeholder="出生日期" data-am-datepicker readonly required v-model="formData.birthday">
+                <input type="text" name="birthday" class="am-form-field" placeholder="出生日期" v-datepicker="" readonly  required >
               </div>
             </div>
 
@@ -159,7 +159,6 @@ import io from '../../lib/io'
             }
         },
         mounted:function(){
-          $('[data-am-datepicker]').datepicker();
           var _this = this ;
           $('#' + this.id ).validator({
             onValid: function(validity) {
