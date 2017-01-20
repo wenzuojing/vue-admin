@@ -4,7 +4,7 @@
       <div class="widget-head am-cf">
         <div class="widget-title am-fl">用户信息</div>
         <div class="widget-function am-fr">
-          <a href="javascript:;" class="am-icon-cog"></a>
+          <button type="button" class="am-btn am-btn-default" @click="$router.go(-1)">返回</button>
         </div>
       </div>
       <div class="widget-body am-fr">
@@ -38,7 +38,7 @@
                 <span class="am-text-danger am-margin-right-xs am-text-xs">*</span>出生日期
               </label>
               <div class="am-u-sm-9 input-field">
-                <input type="text" name="birthday" class="am-form-field" placeholder="出生日期" v-datepicker="" readonly  required >
+                <input type="text" name="birthday" class="am-form-field" placeholder="出生日期" data-am-datepicker  required v-datepicker v-model="formData.birthday" >
               </div>
             </div>
 
@@ -127,7 +127,8 @@
 
             <div class="am-form-group">
               <div class="am-u-sm-9 am-u-sm-push-3">
-                <button type="submit" class="am-btn am-btn-primary tpl-btn-bg-color-success">提交</button>
+
+                <button type="submit" class="am-btn am-btn-primary">提交</button>
               </div>
             </div>
             </fieldset>
@@ -157,6 +158,23 @@ import io from '../../lib/io'
                   intro:'呵呵,我是地球最闷骚的程序员'
                 }
             }
+        },
+        created:function(){
+         var userId  = this.$params('userId')
+         if(userId){
+          var _this = this
+          io.get(io.getUser,{ userId : userId },
+            function(ret){
+              if(ret.success){
+                _this.formData = ret.data
+              }
+            },
+            function(){
+              _this.$alert('请求服务器失败')
+          })
+         }
+
+
         },
         mounted:function(){
           var _this = this ;
@@ -200,8 +218,6 @@ import io from '../../lib/io'
         methods:{
           save:function(complete){
             var _this = this
-
-
             io.get(io.saveUser,_this.formData,
             function(ret){
               complete.call()

@@ -9,12 +9,7 @@
     <!-- 内容区域 -->
     <div class="tpl-content-wrapper">
       <div class="row-content am-cf">
-        <ol class="am-breadcrumb">
-          <li><a href="#" class="am-icon-home">首页</a></li>
-          <li><a href="#">Amaze UI CSS</a></li>
-          <li class="am-active">文字列表</li>
-        </ol>
-
+        <breadcrumb />
         <template v-if="$route.matched.length > 1 ">
           <router-view></router-view>
         </template>
@@ -30,12 +25,14 @@
 
 import LeftSidebar from './base/LeftSidebar'
 import MainHeader from './base/MainHeader'
+import Breadcrumb from './base/Breadcrumb'
 
 export default {
   name: 'main',
   components: {
     LeftSidebar,
-    MainHeader
+    MainHeader,
+    Breadcrumb
   },
   data () {
     return {

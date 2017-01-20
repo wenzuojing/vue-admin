@@ -26,7 +26,7 @@ const router = new VueRouter({
     children:[
       {path: 'user/list' , component: UserList },
       {path: 'user/add' , component: UserForm },
-      {path: 'user/edit' , component: UserForm }
+      {path: 'user/edit/:userId' , component: UserForm }
     ]
   },{
     path: '/login',

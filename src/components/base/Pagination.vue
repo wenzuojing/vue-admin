@@ -1,6 +1,6 @@
 <template>
   <ul class="am-pagination tpl-pagination">
-    <li v-for="n in pages" :class="n==pageNo ? 'am-active' :''"><a href="javascript:;" @click="$emit('paging' , n )" class="">{{n}}</a></li>
+    <li v-for="n in pages" :key="n" :class="n==pageNo ? 'am-active' :''"><a href="javascript:;" @click="$emit('paging' , n )" class="">{{n}}</a></li>
   </ul>
 </template>
 <style scoped>

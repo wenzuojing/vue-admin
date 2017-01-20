@@ -57,22 +57,24 @@ VueUI.install = function (Vue){
     toast.queue.push(options)
   }
 
+  Vue.prototype.$params=function(name){
+    return this.$router.currentRoute.params[name] ;
+  }
+
 
   Vue.directive('selected', {
-    bind: function (el, binding, vnode) {
-      $(el).attr('data-am-selected',binding.value ? binding.value : '')
-    },
     inserted: function (el, binding, vnode) {
       $(el).selected()
     }
   })
 
   Vue.directive('datepicker', {
-    bind: function (el, binding, vnode) {
-      $(el).attr('data-am-datepicker',binding.value ? binding.value : '' )
-    },
     inserted: function (el, binding, vnode) {
       $(el).datepicker()
+      $(el).on('change',function(){
+        var $this = $(this)
+        $this.val($this.attr('value'))
+      })
     }
   })
 

@@ -6,7 +6,7 @@
         <div class="tpl-user-panel-profile-picture">
           <img src="../../assets/img/user04.png" alt="">
         </div>
-                    <span class="user-panel-logged-in-text">
+          <span class="user-panel-logged-in-text">
               <i class="am-icon-circle-o am-text-success tpl-user-panel-status-icon"></i>
               禁言小张g
           </span>
@@ -16,72 +16,21 @@
 
     <!-- 菜单 -->
     <ul class="sidebar-nav">
-      <li class="sidebar-nav-heading">Components <span class="sidebar-nav-heading-info"> 附加组件</span></li>
-      <li class="sidebar-nav-link">
-        <a href="index.html" class="active">
-          <i class="am-icon-home sidebar-nav-link-logo"></i> 首页
-        </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="tables.html">
-          <i class="am-icon-table sidebar-nav-link-logo"></i> 表格
-        </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="calendar.html">
-          <i class="am-icon-calendar sidebar-nav-link-logo"></i> 日历
-        </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="form.html">
-          <i class="am-icon-wpforms sidebar-nav-link-logo"></i> 表单
 
+      <li v-for="item in menus" class="sidebar-nav-link" >
+        <a href="javascript:;" :class="item.subMenus?'sidebar-nav-sub-title':''" @click="go(item)">
+          <i class="sidebar-nav-link-logo" :class="item.icon"></i> {{item.name}}
+          <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico" v-if="item.subMenus"></span>
         </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="chart.html">
-          <i class="am-icon-bar-chart sidebar-nav-link-logo"></i> 图表
-
-        </a>
-      </li>
-
-      <li class="sidebar-nav-heading">Page<span class="sidebar-nav-heading-info"> 常用页面</span></li>
-      <li class="sidebar-nav-link">
-        <a href="javascript:;" class="sidebar-nav-sub-title">
-          <i class="am-icon-table sidebar-nav-link-logo"></i> 数据列表
-          <span class="am-icon-chevron-down am-fr am-margin-right-sm sidebar-nav-sub-ico"></span>
-        </a>
-        <ul class="sidebar-nav sidebar-nav-sub">
-          <li class="sidebar-nav-link">
-            <a href="table-list.html">
-              <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 文字列表
-            </a>
-          </li>
-
-          <li class="sidebar-nav-link">
-            <a href="table-list-img.html">
-              <span class="am-icon-angle-right sidebar-nav-link-logo"></span> 图文列表
+        <ul class="sidebar-nav sidebar-nav-sub" v-if="item.subMenus" >
+          <li class="sidebar-nav-link" v-for="subItem in item.subMenus">
+            <a href="javascript:;" @click="go(item,subItem)">
+              <span class="sidebar-nav-link-logo" :class="subItem.icon"></span> {{subItem.name}}
             </a>
           </li>
         </ul>
       </li>
-      <li class="sidebar-nav-link">
-        <a href="sign-up.html">
-          <i class="am-icon-clone sidebar-nav-link-logo"></i> 注册
-            <span
-              class="am-badge am-badge-secondary sidebar-nav-link-logo-ico am-round am-fr am-margin-right-sm">6</span>
-        </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="login.html">
-          <i class="am-icon-key sidebar-nav-link-logo"></i> 登录
-        </a>
-      </li>
-      <li class="sidebar-nav-link">
-        <a href="404.html">
-          <i class="am-icon-tv sidebar-nav-link-logo"></i> 404错误
-        </a>
-      </li>
+
 
     </ul>
   </div>
@@ -90,9 +39,39 @@
 <script>
 
 
+var menus = [
+{
+  name:'首页',
+  url:'/index.html',
+  icon:'am-icon-home'
+},
+{
+  name:'用户管理',
+  url:'',
+  icon:'am-icon-table',
+  subMenus:[
+  {
+  name:'用户列表',
+  url:'/main/user/list',
+  icon:'am-icon-angle-right'
+  },
+  {
+  name:'添加用户',
+  url:'/main/user/add',
+  icon:'am-icon-angle-right'
+  }
+  ]
+}
+]
+
 
 export default {
   name: 'left-sidebar',
+  data:function(){
+    return {
+      menus:menus
+    }
+  },
   mounted:function(){
     $('.sidebar-nav-sub-title').on('click', function() {
     $(this).siblings('.sidebar-nav-sub').slideToggle(80)
@@ -122,6 +101,13 @@ export default {
           } else {
               $('.left-sidebar').removeClass('active');
           }
+    },
+    go:function(){
+      var item  = arguments[arguments.length-1]
+      if(item.url){
+        this.$root.$emit('sidebar.click',arguments)
+        this.$router.push(item.url)
+      }
     }
   }
 }

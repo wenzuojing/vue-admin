@@ -21,7 +21,7 @@
 
         <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
           <div class="am-form-group tpl-table-list-select">
-            <select v-selected="{btnSize: 'sm'}" style="display: none;">
+            <select v-selected data-am-selected="{btnSize: 'sm'}" style="display: none;">
               <option value="option1">所有类别</option>
               <option value="option2">IT业界</option>
               <option value="option3">数码产品</option>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="am-u-sm-12">
-          <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black " id="example-r">
+          <table width="100%" class="am-table am-table-compact am-table-striped tpl-table-black ">
             <thead>
             <tr>
               <th>头像</th>
@@ -57,7 +57,7 @@
             </thead>
             <tbody>
 
-            <tr v-for="item in tableData">
+            <tr v-for="item in tableData" :key="item.userId">
               <td>
                 <img :src="item.avatar" class="tpl-table-line-img" alt="">
               </td>
@@ -70,10 +70,10 @@
               <td>{{item.hobby ? item.hobby.join('、') : '' }}</td>
               <td>
                 <div class="tpl-table-black-operation">
-                  <a href="javascript:;">
+                  <a href="javascript:;" @click="$router.push('/main/user/edit/'+item.userId)">
                     <i class="am-icon-pencil"></i> 编辑
                   </a>
-                  <a href="javascript:;" class="tpl-table-black-operation-del">
+                  <a href="javascript:;" class="tpl-table-black-operation-del" @click="del(item.userId)">
                     <i class="am-icon-trash"></i> 删除
                   </a>
                 </div>

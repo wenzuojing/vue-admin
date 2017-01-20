@@ -74,6 +74,8 @@ app.use('/api', function (req, res) {
 
   var method  = req.query.method
 
+  console.log(method)
+
 
   if(method == 'getUser'){
     var id = req.query.userId ;
@@ -83,12 +85,14 @@ app.use('/api', function (req, res) {
     })
   }else if(method == 'saveUser'){
     var u = req.query
+    delete u.method 
     if(u.userId ){
       users[u.userId]= u ;
     }else{
       u.userId = users.length
       users.push(u)
     }
+
     res.jsonp({
       success : true
     })

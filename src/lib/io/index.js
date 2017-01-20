@@ -12,6 +12,7 @@ const io = {
       BASE_ADMIN_API = 'http://localhost:8080'
     }
     this.saveUser = BASE_ADMIN_API + '/api?method=saveUser'
+    this.getUser = BASE_ADMIN_API + '/api?method=getUser'
     this.userList = BASE_ADMIN_API + '/api?method=userList'
   },
   getHeaders : function(){
