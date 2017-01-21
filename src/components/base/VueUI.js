@@ -4,6 +4,8 @@ import AMAlert from './Alert'
 import AMConfirm from './Confirm'
 import AMPrompt from './Prompt'
 import AMToast from './Toast.vue'
+import DatePicker from './DatePicker'
+import Selected from './Selected'
 
 var VueUI = function(){
 
@@ -61,22 +63,10 @@ VueUI.install = function (Vue){
     return this.$router.currentRoute.params[name] ;
   }
 
+  Vue.component('date-picker',DatePicker)
+  Vue.component('selected',Selected)
 
-  Vue.directive('selected', {
-    inserted: function (el, binding, vnode) {
-      $(el).selected()
-    }
-  })
 
-  Vue.directive('datepicker', {
-    inserted: function (el, binding, vnode) {
-      $(el).datepicker()
-      $(el).on('change',function(){
-        var $this = $(this)
-        $this.val($this.attr('value'))
-      })
-    }
-  })
 
 
 }

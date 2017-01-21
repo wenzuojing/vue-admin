@@ -21,15 +21,17 @@
 
         <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
           <div class="am-form-group tpl-table-list-select">
-            <select v-selected data-am-selected="{btnSize: 'sm'}" style="display: none;">
-              <option value="option1">所有类别</option>
-              <option value="option2">IT业界</option>
-              <option value="option3">数码产品</option>
-              <option value="option3">笔记本电脑</option>
-              <option value="option3">平板电脑</option>
-              <option value="option3">只能手机</option>
-              <option value="option3">超极本</option>
-            </select>
+            <selected>
+              <select data-am-selected="{btnSize: 'sm'}">
+                <option value="option1">所有类别</option>
+                <option value="option2">IT业界</option>
+                <option value="option3">数码产品</option>
+                <option value="option3">笔记本电脑</option>
+                <option value="option3">平板电脑</option>
+                <option value="option3">只能手机</option>
+                <option value="option3">超极本</option>
+              </select>
+            </selected>
           </div>
         </div>
         <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
@@ -115,7 +117,8 @@ import UserForm from './UserForm'
             tableData:[],
             total:0,
             pageSize:5,
-            pageNo:1
+            pageNo:1,
+            query:{}
           }
         },
         components: {
@@ -149,13 +152,12 @@ import UserForm from './UserForm'
 
           },
           loadTableData:function(pageNo){
-            console.log(pageNo)
             var _this = this
             _this.pageNo = pageNo
-            io.get(io.userList,{
+            io.get(io.userList,$.extend({
               pageNo:_this.pageNo,
               pageSize:_this.pageSize
-            },function(ret){
+            },_this.query),function(ret){
               if(ret.success){
                 _this.total = ret.data.total
                 _this.tableData = ret.data.list

@@ -1,27 +1,19 @@
 <template>
-    <div>
-        <header-component/>
-        <div>this is template body</div>
-        <other-component/>
-    </div>
+  <div><slot></slot></div>
 </template>
-<style>
-    body{
-        background-color:#ff0000;
-    }
+<style scoped>
+
 </style>
 <script>
-    import HeaderComponent from './components/header.vue'
-    import OtherComponent from './components/other.vue'
     export default{
-        data(){
-            return{
-                msg:'hello vue'
-            }
-        },
-        components:{
-            'other-component':OtherComponent,
-            HeaderComponent,
+        name:'date-picker',
+        mounted:function(){
+          var _this = this
+          $('[data-am-datepicker]',this.$el ).datepicker().on('change',function(){
+             $(this).val($(this).attr('value'))
+             _this.$emit('input',$(this).val())
+          })
         }
+
     }
 </script>

@@ -24,12 +24,14 @@
                 籍贯
               </label>
               <div class="am-u-sm-3 am-u-end input-field">
-                <select name="location" class="" required v-model="formData.location">
-                  <option value="">===选择籍贯===</option>
-                  <option value=广州">广州</option>
-                  <option value="珠海">珠海</option>
-                  <option value="云浮">云浮</option>
-                </select>
+                <selected v-model="formData.location" >
+                  <select data-am-selected  required>
+                    <option></option>
+                    <option value="云浮">云浮</option>
+                    <option value="广州">广州</option>
+                    <option value="佛山">佛山</option>
+                  </select>
+                </selected>
               </div>
             </div>
 
@@ -37,8 +39,10 @@
               <label class="am-u-sm-3 am-form-label">
                 <span class="am-text-danger am-margin-right-xs am-text-xs">*</span>出生日期
               </label>
-              <div class="am-u-sm-9 input-field">
-                <input type="text" name="birthday" class="am-form-field" placeholder="出生日期" data-am-datepicker  required v-datepicker v-model="formData.birthday" >
+              <div class="am-u-sm-3 am-u-end input-field">
+                <date-picker v-model="formData.birthday" >
+                  <input type="text" class="am-form-field" placeholder="出生日期" data-am-datepicker readonly  required >
+                </date-picker>
               </div>
             </div>
 
@@ -148,8 +152,8 @@ import io from '../../lib/io'
                 id:'form-'+(new Date().getTime()),
                 formData:{
                   name : '攻城狮',
-                  location:'云浮',
-                  birthday:'1999-09-09',
+                  location:'佛山',
+                  //birthday:'1999-09-09',
                   age:28,
                   sex:1,
                   hobby:['香蕉','苹果'],

@@ -1,27 +1,36 @@
 <template>
-    <div>
-        <header-component/>
-        <div>this is template body</div>
-        <other-component/>
-    </div>
+  <div><slot></slot></div>
 </template>
-<style>
-    body{
-        background-color:#ff0000;
-    }
+<style scoped >
+
 </style>
 <script>
-    import HeaderComponent from './components/header.vue'
-    import OtherComponent from './components/other.vue'
     export default{
+        name:'selected',
         data(){
-            return{
-                msg:'hello vue'
+            return {
+
             }
         },
-        components:{
-            'other-component':OtherComponent,
-            HeaderComponent,
+        props:['value'],
+        mounted:function(){
+          var _this = this
+          this.setSelect(this.value)
+          $('[data-am-selected]' , this.$el ).selected()
+          .on('change',function(){
+            _this.$emit('input',$(this).val())
+          })
+
+        },
+        watch:{
+          value:function(val){
+            this.setSelect(val)
+          }
+        },
+        methods:{
+          setSelect:function(val){
+            $('[data-am-selected]' , this.$el).find('option[value='+val+']').attr('selected', true);
+          }
         }
     }
 </script>
