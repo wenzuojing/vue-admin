@@ -1,19 +1,25 @@
 
+import conf from '../conf'
+
 import Storage from '../storage'
+
+
+jQuery.cachedScript = function( url, options ) {
+  options = $.extend( options || {}, {
+    dataType: "script",
+    cache: true,
+    url: url
+  });
+  return jQuery.ajax( options );
+};
 
 const io = {
 
 
   configUrls: function () {
-    var  BASE_ADMIN_API = '';
-    if('development' == process.env.NODE_ENV ){
-      BASE_ADMIN_API = 'http://localhost:8080'
-    }else if('production' == process.env.NODE_ENV){
-      BASE_ADMIN_API = 'http://localhost:8080'
-    }
-    this.saveUser = BASE_ADMIN_API + '/api?method=saveUser'
-    this.getUser = BASE_ADMIN_API + '/api?method=getUser'
-    this.userList = BASE_ADMIN_API + '/api?method=userList'
+    this.saveUser = conf.baseApiPath + '/api?method=saveUser'
+    this.getUser = conf.baseApiPath + '/api?method=getUser'
+    this.userList = conf.baseApiPath + '/api?method=userList'
   },
   getHeaders : function(){
     const accessToken = Storage.getAccessToken() || '' ;
@@ -90,6 +96,15 @@ const io = {
         }
       }
     });
+  },
+  getScripts:function(urls,done){
+    var $scripts = $.map( urls , function(url) {
+      return $.cachedScript(url)
+    });
+    $scripts.push($.Deferred(function( deferred ){
+      $( deferred.resolve );
+    }));
+    $.when.apply($, $scripts).done(done)
   }
 };
 

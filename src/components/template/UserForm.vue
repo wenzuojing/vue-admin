@@ -109,14 +109,9 @@
                 头像
               </label>
               <div class="am-u-sm-9 am-form-file input-field">
-                <button type="button" class="am-btn am-btn-default am-btn-sm">
-                  <i class="am-icon-cloud-upload"></i>
-                  选择要上传的文件
-                </button>
-                <input type="file">
-                <input type="hidden" v-model="formData.avatar" >
-                <br/>
-                <img class="am-margin-top" :src="formData.avatar">
+                <file-upload extensions="jpg,png" @uploaded="uploadAvatar">
+                  <img class="am-margin-top" :src="formData.avatar">
+                </file-upload>
               </div>
             </div>
 
@@ -233,6 +228,9 @@ import io from '../../lib/io'
               _this.$alert('请求服务器失败')
             })
 
+          },
+          uploadAvatar:function(info){
+            this.formData.avatar = info.url
           }
         }
     }

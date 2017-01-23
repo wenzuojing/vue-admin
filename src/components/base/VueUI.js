@@ -6,6 +6,7 @@ import AMPrompt from './Prompt'
 import AMToast from './Toast.vue'
 import DatePicker from './DatePicker'
 import Selected from './Selected'
+import FileUpload from './FileUpload'
 
 var VueUI = function(){
 
@@ -65,6 +66,7 @@ VueUI.install = function (Vue){
 
   Vue.component('date-picker',DatePicker)
   Vue.component('selected',Selected)
+  Vue.component('file-upload',FileUpload)
 
 
 
