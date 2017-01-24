@@ -41,7 +41,7 @@
               </label>
               <div class="am-u-sm-3 am-u-end input-field">
                 <date-picker v-model="formData.birthday" >
-                  <input type="text" class="am-form-field" placeholder="出生日期" data-am-datepicker readonly  required >
+                  <input type="text" class="am-form-field" placeholder="出生日期" data-am-datepicker readonly  required v-model="formData.birthday" >
                 </date-picker>
               </div>
             </div>
@@ -120,7 +120,8 @@
                 个人介绍
               </label>
               <div class="am-u-sm-9 input-field">
-                <textarea name="intro" rows="10" minlength="10" maxlength="100" v-model="formData.intro"></textarea>
+                <!--<textarea name="intro" rows="10" minlength="10" maxlength="100" v-model="formData.intro"></textarea>-->
+                <editor v-model="formData.intro"></editor>
               </div>
             </div>
 

@@ -7,7 +7,7 @@
     <!-- 右侧内容 -->
     <div class="tpl-header-fluid">
       <!-- 侧边切换 -->
-      <div class="am-fl tpl-header-switch-button am-icon-list">
+      <div class="am-fl tpl-header-switch-button am-icon-list" @click="autoLeftNav">
                     <span>
 
                 </span>
@@ -143,9 +143,18 @@
 <script>
 
 
-
 export default {
-  name: 'main-header'
+  name: 'main-header',
+  mounted:function(){
+    this.autoLeftNav()
+  },
+  methods:{
+
+   autoLeftNav:function() {
+      this.$root.$emit('showOrHiddenLeftSidebar');
+    }
+
+  }
 }
 
 </script>

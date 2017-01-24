@@ -23,8 +23,7 @@
         },
         methods:{
           go:function(item){
-            console.log(item)
-            this.$router.push(item.url)
+            this.$router.push(item.path)
           }
         }
     }

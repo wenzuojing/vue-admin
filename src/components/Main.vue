@@ -27,6 +27,7 @@ import LeftSidebar from './base/LeftSidebar'
 import MainHeader from './base/MainHeader'
 import Breadcrumb from './base/Breadcrumb'
 
+
 export default {
   name: 'main',
   components: {

@@ -1,4 +1,7 @@
 
+
+window.UEDITOR_HOME_URL = '/static/ueditor/'
+
 export default {
 
   baseApiPath : 'development' == process.env.NODE_ENV ? 'http://localhost:8080' : 'http://localhost:8080',

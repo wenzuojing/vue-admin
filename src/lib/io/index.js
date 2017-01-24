@@ -20,6 +20,7 @@ const io = {
     this.saveUser = conf.baseApiPath + '/api?method=saveUser'
     this.getUser = conf.baseApiPath + '/api?method=getUser'
     this.userList = conf.baseApiPath + '/api?method=userList'
+    this.login = conf.baseApiPath + '/api?method=login'
   },
   getHeaders : function(){
     const accessToken = Storage.getAccessToken() || '' ;

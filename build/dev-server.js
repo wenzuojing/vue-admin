@@ -85,7 +85,7 @@ app.use('/api', function (req, res) {
     })
   }else if(method == 'saveUser'){
     var u = req.query
-    delete u.method 
+    delete u.method
     if(u.userId ){
       users[u.userId]= u ;
     }else{
@@ -101,7 +101,7 @@ app.use('/api', function (req, res) {
     var pageNo = req.query.pageNo
 
     var startIndex  = ( (pageNo -1 ) *pageSize )
-    var endIndex  = Math.min(pageNo*pageSize, users.length )
+    var endIndex  = Math.min( pageNo*pageSize, users.length )
 
     res.jsonp({
       success : true,
@@ -112,6 +112,19 @@ app.use('/api', function (req, res) {
         list : users.slice(startIndex,endIndex)
       }
     })
+  }else if(method == "login" ){
+    var username = req.query.username;
+    var password = req.query.password;
+    if(username == 'admin' && password == 'e10adc3949ba59abbe56e057f20f883e' /*123456*/){
+      res.jsonp({
+        success : true
+      })
+    }else{
+      res.jsonp({
+        success : false,
+        msg :'登录失败'
+      })
+    }
   }
 })
 

@@ -6,6 +6,12 @@ const storage = {
   },
   getAccessToken:function () {
     return store.get("accessToken");
+  },
+  setLogin:function(info){
+    store.set("login" , info );
+  },
+  getLogin:function(){
+    return store.get("login");
   }
 
 }

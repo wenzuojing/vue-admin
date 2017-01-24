@@ -42,22 +42,22 @@
 var menus = [
 {
   name:'首页',
-  url:'/index.html',
+  path:'/index.html',
   icon:'am-icon-home'
 },
 {
   name:'用户管理',
-  url:'',
+  path:'',
   icon:'am-icon-table',
   subMenus:[
   {
   name:'用户列表',
-  url:'/main/user/list',
+  path:'/main/user/list',
   icon:'am-icon-angle-right'
   },
   {
   name:'添加用户',
-  url:'/main/user/add',
+  path:'/main/user/add',
   icon:'am-icon-angle-right'
   }
   ]
@@ -69,7 +69,8 @@ export default {
   name: 'left-sidebar',
   data:function(){
     return {
-      menus:menus
+      menus:menus,
+      pathMap : {}
     }
   },
   mounted:function(){
@@ -78,35 +79,53 @@ export default {
             .end()
             .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
     })
+
   },
-  methods:{
-      autoLeftNav: function() {
-          $('.tpl-header-switch-button').on('click', function() {
-              if ($('.left-sidebar').is('.active')) {
-                  if ($(window).width() > 1024) {
-                      $('.tpl-content-wrapper').removeClass('active');
-                  }
-                  $('.left-sidebar').removeClass('active');
-              } else {
+  created:function(){
+    for(var i = 0 ; i < menus.length ; i++ ){
+      var menu = menus[i]
+      this.pathMap[ menu.path  ] = [menu]
+      if( menu.subMenus && menu.subMenus.length ){
+        for(var j = 0 ;j  < menu.subMenus.length ; j++ ){
+          var subMenu = menu.subMenus[j]
+          this.pathMap[ subMenu.path ] = [menu,subMenu]
+        }
+      }
+    }
 
-                  $('.left-sidebar').addClass('active');
-                  if ($(window).width() > 1024) {
-                      $('.tpl-content-wrapper').addClass('active');
-                  }
-              }
-          })
+    var _this = this
+    setTimeout(function(){
+      _this.$root.$emit('sidebar.click',_this.pathMap[_this.$route.path])
+    })
 
-          if ($(window).width() < 1024) {
-              $('.left-sidebar').addClass('active');
-          } else {
-              $('.left-sidebar').removeClass('active');
+    _this.$root.$on("showOrHiddenLeftSidebar",function(){
+      if ($('.left-sidebar').is('.active')) {
+          if ($(window).width() > 1024) {
+              $('.tpl-content-wrapper').removeClass('active');
           }
-    },
+          $('.left-sidebar').removeClass('active');
+      } else {
+
+          $('.left-sidebar').addClass('active');
+          if ($(window).width() > 1024) {
+              $('.tpl-content-wrapper').addClass('active');
+          }
+      }
+    })
+
+    if ($(window).width() < 1024) {
+        $('.left-sidebar').addClass('active');
+    } else {
+        $('.left-sidebar').removeClass('active');
+    }
+  },
+
+  methods:{
     go:function(){
       var item  = arguments[arguments.length-1]
-      if(item.url){
+      if(item.path){
         this.$root.$emit('sidebar.click',arguments)
-        this.$router.push(item.url)
+        this.$router.push(item.path)
       }
     }
   }
