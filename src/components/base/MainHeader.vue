@@ -120,7 +120,7 @@
 
 
               <li class="tpl-dropdown-menu-notifications">
-                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf">
+                <a href="javascript:;" class="tpl-dropdown-menu-notifications-item am-cf" >
                   <i class="am-icon-bell"></i> 进入列表…
                 </a>
               </li>
@@ -129,7 +129,7 @@
 
           <!-- 退出 -->
           <li class="am-text-sm">
-            <a href="javascript:;">
+            <a href="javascript:;" @click="signOut">
               <span class="am-icon-sign-out"></span> 退出
             </a>
           </li>
@@ -149,17 +149,18 @@ export default {
     this.autoLeftNav()
   },
   methods:{
-
    autoLeftNav:function() {
       this.$root.$emit('showOrHiddenLeftSidebar');
-    }
+   },
+   signOut:function(){
+
+   }
 
   }
 }
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
