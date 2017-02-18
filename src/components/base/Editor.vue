@@ -15,7 +15,7 @@ import io from '../../lib/io'
                 id:'editor-'+(new Date().getTime())
             }
         },
-        props:['width','height'],
+        props:['width','height','value'],
         mounted:function(){
           var _this = this
           io.getScripts(['static/ueditor/ueditor.config.js','static/ueditor/ueditor.all.js'],function(){
